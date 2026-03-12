@@ -3343,8 +3343,7 @@
   function fmtDate(iso) { return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
 
   initTheme();
-  const saved = localStorage.getItem('fb_config');
-  if (saved) { try { initFirebase(JSON.parse(saved)); } catch { localStorage.removeItem('fb_config'); } }
+  initFirebase(FIREBASE_CONFIG);
 </script>
 </body>
 </html>
