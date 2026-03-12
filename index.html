@@ -1152,6 +1152,22 @@
   function allHabits() { return userHabits.length ? userHabits : [...DEFAULT_HABITS]; }
   function ensureUserHabits() { if (!userHabits.length) userHabits = DEFAULT_HABITS.map(h => ({...h})); }
 
+  // Hardcoded Firebase config — setup screen is bypassed
+  const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyA9V5pnxv6cRIQbex3giLGFEFFPF1GbaJE",
+    authDomain: "kdvl-29062.firebaseapp.com",
+    projectId: "kdvl-29062",
+    storageBucket: "kdvl-29062.firebasestorage.app",
+    messagingSenderId: "389566551199",
+    appId: "1:389566551199:web:10b482f3d01dc3ce547eaa",
+    measurementId: "G-RV2PT6X8R4"
+  };
+
+  // Debug fallback: open setup screen via console with: window.__showSetup()
+  window.__showSetup = function() {
+    document.getElementById('setup-screen').classList.remove('hidden');
+  };
+
   window.saveConfig = function() {
     let raw = document.getElementById('config-input').value.trim();
     const errEl = document.getElementById('setup-error');
@@ -1167,13 +1183,11 @@
       errEl.textContent = 'Invalid config — paste everything from { to } from your Firebase project settings!';
       return;
     }
-    localStorage.setItem('fb_config', JSON.stringify(cfg));
     initFirebase(cfg);
   };
 
   window.resetConfig = function() {
     if (!confirm('Disconnect from Firebase? Your cloud data stays safe!')) return;
-    localStorage.removeItem('fb_config');
     location.reload();
   };
 
